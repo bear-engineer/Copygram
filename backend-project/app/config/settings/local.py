@@ -1,3 +1,6 @@
+# ENV
+# export DJANGO_SETTINGS_MODULE=config.settings.local
+
 from .base import *
 
 SECRET = json.load(open(os.path.join(SECRET_ROOT, 'local_database.json')))
