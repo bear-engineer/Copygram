@@ -1,7 +1,7 @@
 # custom
-.secret
-/.secret
-/backend-project/app/.secret
+.secrets
+/.secrets
+./backend-project/app/.secrets
 # Created by https://www.gitignore.io/api/git,macos,linux,django,pycharm+all
 # Edit at https://www.gitignore.io/?templates=git,macos,linux,django,pycharm+all
 
