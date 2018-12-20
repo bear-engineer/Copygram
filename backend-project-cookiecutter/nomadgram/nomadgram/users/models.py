@@ -8,6 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
+
+    """
+    User model
+    """
     GENDER_CHOICES = (
         ('male', 'Male'),
         ('female', 'Female'),
