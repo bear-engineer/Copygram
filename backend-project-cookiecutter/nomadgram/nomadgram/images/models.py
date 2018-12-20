@@ -27,6 +27,9 @@ class Image(TimeStampedModel):
         null=True
     )
 
+    def __str__(self):
+        return f'{self.location} - {self.caption}'
+
 
 class Comment(TimeStampedModel):
     """
@@ -44,6 +47,9 @@ class Comment(TimeStampedModel):
         null=True
     )
 
+    def __str__(self):
+        return f'{self.message} - {self.creator}'
+
 
 class Like(TimeStampedModel):
     """
@@ -59,3 +65,6 @@ class Like(TimeStampedModel):
         on_delete=models.CASCADE,
         null=True
     )
+
+    def __str__(self):
+        return f'{self.image.creator} 님의 글 {self.image.caption} 을(를) {self.creator} 님이 좋아합니다!'
