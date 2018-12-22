@@ -44,6 +44,7 @@ class Comment(TimeStampedModel):
     image = models.ForeignKey(
         Image,
         on_delete=models.CASCADE,
+        related_name='comments',
         null=True
     )
 
@@ -63,6 +64,7 @@ class Like(TimeStampedModel):
     image = models.ForeignKey(
         Image,
         on_delete=models.CASCADE,
+        related_name='likes',
         null=True
     )
 
