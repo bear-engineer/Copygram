@@ -3,27 +3,23 @@ from rest_framework.response import Response
 from . import models, serializers
 
 
-class ListAllImages(APIView):
+class Feed(APIView):
     def get(self, request, format=None):
+        user = request.user
+        following_users = user.following.all()
 
-        # 현재 요청을 보낸 유저가 http/https 를 사용하는지에 대한 판별
-        print(request.scheme)
-        # 현재 요청을 보낸 유저가 followers 하는 유저
-        print(request.user.followers)
-        all_images = models.Image.objects.all()
-        serializer = serializers.ImageSerializer(all_images, many=True)
+        # [item.images.all()[:2] for item in following_users]
+        image_list = []
+
+        # list 추출
+        for following_user in following_users:
+            image_list += following_user.images.all()[:2]
+
+        # 정렬
+        sorted_list = sorted(image_list, key=lambda image: image.created_at, reverse=True)
+
+        serializer = serializers.ImageSerializer(sorted_list, many=True)
+
         return Response(data=serializer.data)
 
 
-class ListAllComment(APIView):
-    def get(self, request, format=None):
-        all_comments = models.Comment.objects.all()
-        serializer = serializers.CommentSerializer(all_comments, many=True)
-        return Response(data=serializer.data)
-
-
-class ListAllLikes(APIView):
-    def get(self, request, format=None):
-        all_likes = models.Like.objects.all()
-        serializer = serializers.LikeSerializer(all_likes, many=True)
-        return Response(data=serializer.data)

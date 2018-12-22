@@ -24,11 +24,15 @@ class Image(TimeStampedModel):
     creator = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        related_name='images',
         null=True
     )
 
     def __str__(self):
         return f'{self.location} - {self.caption}'
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class Comment(TimeStampedModel):
