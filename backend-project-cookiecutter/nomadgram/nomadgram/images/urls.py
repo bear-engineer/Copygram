@@ -3,5 +3,7 @@ from . import views
 
 app_name = 'images'
 urlpatterns = [
-    path('all/', views.ListAllImages.as_view(), name='all_images'),
+    path('', views.ListAllImages.as_view(), name='all_images'),
+    path('comment/', views.ListAllComment.as_view(), name='all_comment'),
+    path('likes/', views.ListAllLikes.as_view(), name='all_likes'),
 ]
