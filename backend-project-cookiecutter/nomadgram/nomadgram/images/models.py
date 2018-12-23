@@ -28,6 +28,10 @@ class Image(TimeStampedModel):
         null=True
     )
 
+    @property
+    def like_count(self):
+        return self.likes.all().count()
+
     def __str__(self):
         return f'{self.location} - {self.caption}'
 

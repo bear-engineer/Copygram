@@ -10,7 +10,6 @@ class Feed(APIView):
 
         # 유저의 following 목록
         following_users = user.following.all()
-
         image_list = []
 
         # 유저의 following 중인 유저들의 포스트 목록을 불러온 후에 하나의 리스트로 합치기
@@ -19,7 +18,17 @@ class Feed(APIView):
 
         # 최신 순으로정렬
         sorted_list = sorted(image_list, key=lambda image: image.created_at, reverse=True)
-
         serializer = serializers.ImageSerializer(sorted_list, many=True)
 
         return Response(data=serializer.data)
+    # def get(self, request, format=None):
+    #     # 요청을 보낸 유저
+    #     user = request.user
+    #     following_users = user.following.all().values('id')
+    #     sorted_list = models.Image.objects.filter(
+    #         creator_id__in=[item['id'] for item in following_users.values()]
+    #     ).order_by('-created_at')
+    #
+    #     serializer = serializers.ImageSerializer(sorted_list, many=True)
+    #
+    #     return Response(data=serializer.data)
