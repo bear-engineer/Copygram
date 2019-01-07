@@ -6,6 +6,18 @@ from taggit_serializer.serializers import TagListSerializerField, TaggitSerializ
 User = get_user_model()
 
 
+class SmallImageSerializer(serializers.ModelSerializer):
+    """
+    Used fro tho notifications
+    """
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'file',
+        )
+
+
 class CountImageSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField()
 

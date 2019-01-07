@@ -19,6 +19,10 @@ urlpatterns = [
                       "users/",
                       include("nomadgram.users.urls", namespace="users"),
                   ),
+
+                  path('notifications/',
+                       include('nomadgram.notifications.urls', namespace="notifications")
+                       ),
                   path('images/', include('nomadgram.images.urls')),
                   path("accounts/", include("allauth.urls")),
                   # Your stuff: custom urls includes go here
