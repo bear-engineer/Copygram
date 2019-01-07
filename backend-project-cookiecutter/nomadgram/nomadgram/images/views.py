@@ -98,3 +98,17 @@ class Comment(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except models.Comment.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class Search(APIView):
+    def get(self, request, format=None):
+        hashtags = request.query_params.get('hashtags', None)
+        if not hashtags:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data='[?hashtags=tag] 형태로 검색을 권장합니다.')
+        else:
+            hashtags = hashtags.split(',')
+
+            # .distinct() 중복된 결과값을 제거한다.
+            images = models.Image.objects.filter(tags__name__in=hashtags).distinct()
+            serializer = serializers.CountImageSerializer(images, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)

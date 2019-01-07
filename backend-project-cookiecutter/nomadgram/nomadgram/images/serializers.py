@@ -1,18 +1,22 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from . import models
+from taggit_serializer.serializers import TagListSerializerField, TaggitSerializer
 
 User = get_user_model()
 
 
-class UserProfileImageSerializer(serializers.ModelSerializer):
+class CountImageSerializer(TaggitSerializer, serializers.ModelSerializer):
+    tags = TagListSerializerField()
+
     class Meta:
         model = models.Image
         fields = (
             'id',
             'file',
             'comment_count',
-            'like_count'
+            'like_count',
+            'tags'
         )
 
 

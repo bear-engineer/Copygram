@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from taggit.managers import TaggableManager
 
 User = get_user_model()
 
@@ -27,6 +28,7 @@ class Image(TimeStampedModel):
         related_name='images',
         null=True
     )
+    tags = TaggableManager()
 
     @property
     def like_count(self):

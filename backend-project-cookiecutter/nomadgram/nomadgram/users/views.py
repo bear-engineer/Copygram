@@ -75,3 +75,16 @@ class UserFollowing(APIView):
         serializer = serializers.ListUserSerializer(user_following, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+class Search(APIView):
+    def get(self, request, format=None):
+        username = request.query_params.get('username', None)
+        users = models.User.objects.filter(username__icontains=username)
+        if not users:
+            return Response(
+                data='해당하는 유저가 존재하지 않거나 검색방법지 잘못되었습니다.\n[?username=username]',
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        serializer = serializers.ListUserSerializer(users, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)

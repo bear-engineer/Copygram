@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    images = images_serializers.UserProfileImageSerializer(many=True)
+    images = images_serializers.CountImageSerializer(many=True)
 
     class Meta:
         model = User
