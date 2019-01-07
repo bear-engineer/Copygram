@@ -80,11 +80,12 @@ class UserFollowing(APIView):
 class Search(APIView):
     def get(self, request, format=None):
         username = request.query_params.get('username', None)
-        users = models.User.objects.filter(username__icontains=username)
-        if not users:
+
+        if not username:
             return Response(
-                data='해당하는 유저가 존재하지 않거나 검색방법지 잘못되었습니다.\n[?username=username]',
+                data='해당하는 유저가 존재하지 않거나 검색방법이 잘못되었습니다. [?username=username]',
                 status=status.HTTP_400_BAD_REQUEST
             )
+        users = models.User.objects.filter(username__istartswith=username)
         serializer = serializers.ListUserSerializer(users, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
