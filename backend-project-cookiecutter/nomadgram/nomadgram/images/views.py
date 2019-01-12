@@ -40,6 +40,19 @@ class ImageDetail(APIView):
         serializer = serializers.ImageSerializer(image)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
+    def put(self, request, image_id, format=None):
+        try:
+            image = models.Image.objects.get(id=image_id, creator=request.user)
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        serializer = serializers.InputImageSerializer(image, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save(creator=request.user)
+            return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class LikeImage(APIView):
     def get(self, request, image_id, format=None):
