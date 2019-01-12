@@ -113,3 +113,26 @@ class Search(APIView):
         users = models.User.objects.filter(username__istartswith=username)
         serializer = serializers.ListUserSerializer(users, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+class ChangePassword(APIView):
+    def put(self, request, username, format=None):
+        user = request.user
+        current_password = request.data.get('current_password', None)
+        new_password = request.data.get('new_password', None)
+
+        if user.username != username:
+            return Response(data="권한이 없습니다.", status=status.HTTP_401_UNAUTHORIZED)
+        if current_password is not None:
+            password_match = user.check_password(current_password)
+
+            if password_match:
+                if new_password is not None:
+                    user.set_password(new_password)
+                    user.save()
+                    return Response(status=status.HTTP_200_OK)
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+            else:
+                return Response(data="비밀번호가 일치하지 않습니다.", status=status.HTTP_400_BAD_REQUEST)
