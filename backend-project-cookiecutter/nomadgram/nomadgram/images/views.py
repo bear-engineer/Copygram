@@ -18,6 +18,9 @@ class Feed(APIView):
         for following_user in following_users:
             image_list += following_user.images.all()[:2]
 
+        my_images = user.images.all()[:2]
+        image_list += my_images
+
         # 최신 순으로정렬
         sorted_list = sorted(image_list, key=lambda image: image.created_at, reverse=True)
         serializer = serializers.ImageSerializer(sorted_list, many=True)
@@ -127,6 +130,7 @@ class ModeratedComments(APIView):
     """
     해당하는 image 의 owner 가 comments 를 지울수 있다.
     """
+
     def delete(self, request, image_id, comment_id, format=None):
         user = request.user
         # try:
