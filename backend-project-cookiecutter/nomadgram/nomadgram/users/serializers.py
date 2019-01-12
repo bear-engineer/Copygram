@@ -7,11 +7,14 @@ User = get_user_model()
 
 class UserProfileSerializer(serializers.ModelSerializer):
     images = images_serializers.CountImageSerializer(many=True)
+    post_count = serializers.ReadOnlyField()
+    followers_count = serializers.ReadOnlyField()
+    following_count = serializers.ReadOnlyField()
 
     class Meta:
         model = User
         fields = (
-            'id',
+            'profile_image',
             'username',
             'name',
             'bio',
