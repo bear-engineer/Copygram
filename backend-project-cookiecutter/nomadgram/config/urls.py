@@ -3,7 +3,6 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
-from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
                   path('rest-auth/', include('rest_auth.urls')),
