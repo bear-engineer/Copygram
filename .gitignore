@@ -4,6 +4,7 @@
 ./backend-project/app/.secrets
 ./webpack-practice/node_modules/*
 /webpack-practice/node_modules/
+/backend-project-cookiecutter/nomadgram/frontend/node_modules/
 # Created by https://www.gitignore.io/api/git,macos,linux,django,pycharm+all
 # Edit at https://www.gitignore.io/?templates=git,macos,linux,django,pycharm+all
 
