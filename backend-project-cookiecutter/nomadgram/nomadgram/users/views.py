@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from nomadgram.notifications import views as notification_views
 from . import models, serializers
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
 
 User = get_user_model()
 
@@ -136,3 +138,7 @@ class ChangePassword(APIView):
 
             else:
                 return Response(data="비밀번호가 일치하지 않습니다.", status=status.HTTP_400_BAD_REQUEST)
+
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter

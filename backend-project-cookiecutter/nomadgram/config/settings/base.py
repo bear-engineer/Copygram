@@ -71,7 +71,8 @@ THIRD_PARTY_APPS = [
     'taggit',  # Tags for the photos
     'taggit_serializer',
     'rest_auth',
-    'rest_auth.registration'
+    'rest_auth.registration',
+    'allauth.socialaccount.providers.facebook',
 ]
 LOCAL_APPS = [
     'nomadgram.users.apps.UsersAppConfig',
