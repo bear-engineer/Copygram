@@ -3,25 +3,26 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
-
+from nomadgram import views
 urlpatterns = [
-                  path('rest-auth/', include('rest_auth.urls')),
-                  path('rest-auth/registration/', include('rest_auth.registration.urls')),
-                  # Django Admin, use {% url 'admin:index' %}
-                  path(settings.ADMIN_URL, admin.site.urls),
-                  # User management
-                  path(
-                      "users/",
-                      include("nomadgram.users.urls", namespace="users"),
-                  ),
+    path('', views.ReactView.as_view()),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    # Django Admin, use {% url 'admin:index' %}
+    path(settings.ADMIN_URL, admin.site.urls),
+    # User management
+    path(
+        "users/",
+        include("nomadgram.users.urls", namespace="users"),
+    ),
 
-                  path('notifications/',
-                       include('nomadgram.notifications.urls', namespace="notifications")
-                       ),
-                  path('images/', include('nomadgram.images.urls')),
-                  path("accounts/", include("allauth.urls")),
-                  # Your stuff: custom urls includes go here
-              ] + static(
+    path('notifications/',
+         include('nomadgram.notifications.urls', namespace="notifications")
+         ),
+    path('images/', include('nomadgram.images.urls')),
+    path("accounts/", include("allauth.urls")),
+    # Your stuff: custom urls includes go here
+] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
 
