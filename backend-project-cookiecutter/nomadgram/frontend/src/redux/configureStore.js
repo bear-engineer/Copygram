@@ -3,6 +3,7 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import createHistory from "history/createBrowserHistory";
 import thunk from "redux-thunk";
 import users from "redux/modules/users";
+import Reactotron from "ReactotronConfig";
 
 const env = process.env.NODE_ENV;
 
@@ -15,16 +16,26 @@ if (env === "development") {
   middlewares.push(logger);
 }
 
+let store;
+
+if (env === "development") {
+  store = initialState =>
+    Reactotron.createStore(
+      connectRouter(history)(reducer),
+      compose(applyMiddleware(...middlewares))
+    );
+} else {
+  store = initialState =>
+    createStore(
+      connectRouter(history)(reducer),
+      compose(applyMiddleware(...middlewares))
+    );
+}
+
 const reducer = combineReducers({
   users,
   router: connectRouter(history)
 });
-
-let store = initialState =>
-  createStore(
-    connectRouter(history)(reducer),
-    compose(applyMiddleware(...middlewares))
-  );
 
 export { history };
 
