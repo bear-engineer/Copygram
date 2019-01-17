@@ -1,8 +1,8 @@
 @import "../../config/variables";
 .footer {
   max-width: $max-page-width;
-  margin: 0 auto;
-  margin-bottom: 55px;
+  margin: 55px auto;
+
   width: 100%;
   display: flex;
   align-items: center;
@@ -28,7 +28,9 @@
         }
         &Item {
           color: $dark-blue;
-          margin-right: 15px;
+          //   margin-right: 15px;
+          padding: 0 5px;
+          box-sizing: border-box;
           cursor: pointer;
           @include breakpoint(mobileonly) {
             margin-bottom: 15px;
