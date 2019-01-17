@@ -2,19 +2,42 @@
 .footer {
   max-width: $max-page-width;
   margin: 0 auto;
+  margin-bottom: 55px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
+  font-style: $small-font-size;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+  @include breakpoint(mobileonly) {
+    justify-content: center;
+  }
   .column {
+    margin-bottom: 15px;
+    @include breakpoint(mobileonly) {
+      margin-bottom: 0;
+    }
     .nav {
       .list {
+        display: flex;
+        flex-wrap: wrap;
+        @include breakpoint(mobileonly) {
+          justify-content: center;
+        }
         &Item {
+          color: $dark-blue;
+          margin-right: 15px;
+          cursor: pointer;
+          @include breakpoint(mobileonly) {
+            margin-bottom: 15px;
+          }
         }
       }
     }
   }
   .copyright {
+    color: $dark-gray;
   }
 }
