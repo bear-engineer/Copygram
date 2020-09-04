@@ -6,7 +6,7 @@
   "dependencies": {
     "connected-react-router": "^6.2.1",
     "history": "^4.7.2",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
